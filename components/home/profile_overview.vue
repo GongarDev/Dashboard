@@ -25,7 +25,7 @@
               target="btnNotifications"
               placement="right"
             >
-              You have a notifications!
+              You have notifications!
             </b-tooltip>
             <b-tooltip v-else target="btnNotifications" placement="right">
               No pending notifications

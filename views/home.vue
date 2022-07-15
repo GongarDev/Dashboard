@@ -66,5 +66,6 @@
 	background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), url("../assets/imgs/background_home.jpg");
 	background-position:center center;
 	background-attachment:fixed;
+	background-repeat: repeat;
 }
 </style>

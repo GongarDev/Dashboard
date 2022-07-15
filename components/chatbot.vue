@@ -11,7 +11,6 @@
               block
               pill
               variant="outline-success"
-              @keyup.caps-lock="keymonitor"
               >{{ answer.title }}</b-button
             >
             <b-button
@@ -20,7 +19,6 @@
               block
               pill
               variant="outline-success"
-              @keyup.caps-lock="keymonitor"
               >{{ answer.title }}</b-button
             >
             <b-button
@@ -29,7 +27,6 @@
               block
               pill
               variant="outline-success"
-              @keyup.caps-lock="keymonitor"
               >{{ answer.title }}</b-button
             >
             <b-button
@@ -38,13 +35,12 @@
               block
               pill
               variant="outline-success"
-              v-on:keypress="openWithF4(demo)"
               >{{ answer.title }}</b-button
             >
           </div>
         </b-card>
       </div>
-      <b-card class="info m-0 p-0" style="font-size: 0.7rem"
+      <b-card v-show="questionIndex < 4" class="info m-0 p-0" style="font-size: 0.7rem"
         >Use numeric keyboard: 1 to 4 descendent</b-card
       >
     </b-collapse>
@@ -83,11 +79,11 @@ module.exports = {
     this.getChat();
     window.addEventListener("keydown", (e) => {
       if (e.key == "4") {
-        this.getSuccessMessage(3);
+        this.getSuccessMessage(4);
       } else if (e.key == "3") {
-        this.getSuccessMessage(2);
+        this.getSuccessMessage(3);
       } else if (e.key == "2") {
-        this.getSuccessMessage(1);
+        this.getSuccessMessage(2);
       } else if (e.key == "1") {
         this.getSuccessMessage(1);
       }
@@ -98,32 +94,22 @@ module.exports = {
       await this.$store.dispatch("getChat");
     },
     showWindowsChat() {
+      this.show = false;
       this.chatBot = this.$store.state.chat[0].questions;
       if (this.questionIndex == this.chatBot?.length) {
         this.successMesage = "Hi!";
         this.questionIndex = 0;
       }
     },
-    getSuccessMessage(value) {
-      show = true;
+    getSuccessMessage(value) {     
+      this.show = true;
       if (this.chatBot[this.questionIndex].successMessages?.length) {
-        console.log(
-          this.chatBot[this.questionIndex].successMessages[value - 1].title
-        );
         this.successMesage =
           this.chatBot[this.questionIndex]?.successMessages[value - 1].title;
+      }else{
+        this.successMesage = "Ok!"
       }
       this.questionIndex++;
-    },
-    openWithF4(callback) {
-      document.addEventListener("keydown", function (e) {
-        if (e.key === 100) {
-          callback();
-        }
-      });
-    },
-    demo() {
-      console.log("Hola mundo");
     },
   },
 };
@@ -138,6 +124,12 @@ module.exports = {
   z-index: 10;
   background: transparent !important;
 }
+
+#iconChatBot:active{
+  border: none !important;
+  outline: none !important;
+}
+
 .card-body {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -147,9 +139,11 @@ module.exports = {
   width: 270px;
   text-align: center;
 }
+
 .collapse {
   border-radius: 10px;
 }
+
 .info .card-body{
     padding: 2px!important;
     text-align: center;
