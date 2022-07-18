@@ -61,6 +61,7 @@
 </script>
 <style scoped>
 #home{
+	height: 100%;
 	display: flex;
 	background-color: transparent;
 	background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), url("../assets/imgs/background_home.jpg");
